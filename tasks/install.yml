@@ -2,15 +2,15 @@
 # tasks file for ansible-role-galaxycloud-tooldeps
 
 - include: prerequisites.yml 
-  when: node_type == 'front'
+  when: type_of_node == 'front'
 
 # Check if Galaxy is up
 - include: check_galaxy.yml
-  when: node_type == 'front'
+  when: type_of_node == 'front'
 
 # Get Conda prefix
 - include: get_conda.yml
-  when: node_type == 'front'
+  when: type_of_node == 'front'
 
 # Install tools dependencies
 - include: dependencies.yml

@@ -2,7 +2,7 @@
 # Prerequisites installation recipe
 
 - include_vars: fastqc_fix.yml
-  when: node_type == 'front'
+  when: type_of_node == 'front'
 
 - name: Get fastqc conda env
   command: '{{ galaxy_venv_path }}/bin/python /tmp/parse_conda_envs.py -c {{ conda_prefix }} -t fastqc'
@@ -12,6 +12,6 @@
 - name: 'Fix fastqc java fonts dependency: https://github.com/conda-forge/staged-recipes/issues/3164'
   command: '{{ conda_prefix }}/bin/conda install -y --name {{ fastqc_conda_env.stdout }} openjdk --channel conda-forge'
   when: 
-   - node_type == 'front'
+   - type_of_node == 'front'
    - fastqc_conda_env.failed is not defined
    - GALAXY_VERSION in fastqc_fix_galaxy_list
