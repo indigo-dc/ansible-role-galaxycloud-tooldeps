@@ -11,6 +11,8 @@
 
 - name: 'Fix fastqc java fonts dependency: https://github.com/conda-forge/staged-recipes/issues/3164'
   command: '{{ conda_prefix }}/bin/conda install -y --name {{ fastqc_conda_env.stdout }} openjdk --channel conda-forge'
+  become_user: '{{ galaxy_user }}'
+  become: true
   when: 
    - type_of_node == 'front'
    - fastqc_conda_env.failed is not defined
