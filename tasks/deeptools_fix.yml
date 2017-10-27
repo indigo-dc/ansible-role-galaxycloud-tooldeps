@@ -1,0 +1,15 @@
+---
+# deeptools fix
+
+- name: Get deeptools conda env
+  command: '{{ galaxy_venv_path }}/bin/python /tmp/parse_conda_envs.py -c {{ conda_prefix }} -t deeptools'
+  register: deeptools_conda_env
+  ignore_errors: yes
+
+- name: 'Fix deeptools bam_coverage ImportError: libbz2.so.1.0: cannot open shared object file: No such file or directory'
+  command: '{{ conda_prefix }}/bin/conda install -y --name {{ deeptools_conda_env.stdout }} bzip2 --channel conda-forge'
+  become_user: '{{ galaxy_user }}'
+  become: true
+  when:
+   - deeptools_conda_env.failed is not defined
+   - GALAXY_VERSION in deeptools_fix_galaxy_list

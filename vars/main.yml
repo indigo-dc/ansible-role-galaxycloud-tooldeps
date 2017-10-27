@@ -1,2 +1,5 @@
 ---
 # vars file for ansible-role-galaxycloud-tooldeps
+
+fastqc_fix_galaxy_list: ['master', 'release_17.01', 'release_17.05']
+deeptools_fix_galaxy_list: ['master', 'release_17.01', 'release_17.05']
