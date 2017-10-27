@@ -1,5 +1,6 @@
 ---
 # deeptools fix
+# https://github.com/ContinuumIO/anaconda-issues/issues/2441
 
 - name: Get deeptools conda env
   command: '{{ galaxy_venv_path }}/bin/python /tmp/parse_conda_envs.py -c {{ conda_prefix }} -t deeptools'
