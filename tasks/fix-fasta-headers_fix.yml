@@ -1,0 +1,20 @@
+---
+# fix-fasta headers fix
+# ERROR: Fatal error: Exit code 127 ()
+# /export/galaxy/database/job_working_directory/000/141/tool_script.sh: line 25: segmentation-fold: command not found
+# /export/galaxy/database/job_working_directory/000/141/tool_script.sh: line 25: segmentation-fold-utils: command not found
+# /export/galaxy/database/job_working_directory/000/141/tool_script.sh: line 25: segmentation-fold-utils: command not found
+#
+
+- name: Get fix-fasta-headers conda env
+  command: '{{ galaxy_venv_path }}/bin/python /tmp/parse_conda_envs.py -c {{ conda_prefix }} -t segmentation_fold'
+  register: segmentation_fold_conda_env
+  ignore_errors: yes
+
+- name: 'Fix fix_fasta_headers segmentation-fold-utils: command not found'
+  command: '{{ conda_prefix }}/bin/conda install -y --name {{ segmentation_fold_conda_env.stdout }} segmentation-fold==1.7.0 --channel bioconda'
+  become_user: '{{ galaxy_user }}'
+  become: true
+  when:
+   - segmentation_fold_conda_env.failed is not defined
+   - GALAXY_VERSION in segmentation_fold_fix_galaxy_list

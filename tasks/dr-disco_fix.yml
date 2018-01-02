@@ -1,0 +1,18 @@
+---
+# Dr-disco fix
+# ERRORE:Fatal error: Exit code 127 ()
+# /export/galaxy/database/job_working_directory/000/384/tool_script.sh: line 25: dr-disco: command not found
+# /export/galaxy/database/job_working_directory/000/384/tool_script.sh: line 25: dr-disco: command not found
+
+- name: Get dr_disco conda env
+  command: '{{ galaxy_venv_path }}/bin/python /tmp/parse_conda_envs.py -c {{ conda_prefix }} -t dr_disco'
+  register: dr_disco_conda_env
+  ignore_errors: yes
+
+- name: 'Fix dr_disco errror:dr-disco: command not found'
+  command: '{{ conda_prefix }}/bin/conda install -y --name {{ dr_disco_conda_env.stdout }} dr-disco==0.14.0 --channel bioconda'
+  become_user: '{{ galaxy_user }}'
+  become: true
+  when:
+   - dr_disco_conda_env.failed is not defined
+   - GALAXY_VERSION in dr_disco_fix_galaxy_list
