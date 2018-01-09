@@ -31,3 +31,9 @@
 - include: dr-disco_fix.yml 
   when: type_of_node == 'front'
   
+#______________________________________
+#trscan
+
+- include: trnascan_fix.yml 
+  when: type_of_node == 'front'
+  

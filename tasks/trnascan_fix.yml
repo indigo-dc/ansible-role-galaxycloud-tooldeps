@@ -1,0 +1,14 @@
+---
+# Traceback (most recent call last):
+#File "/home/galaxy/shed_tools/toolshed.g2.bx.psu.edu/repos/bgruening/trna_prediction/358f58401cd6/trna_prediction/tRNAscan.py", line 7, in <module>
+#from Bio import SeqIO
+#ImportError: No module named Bio
+#
+
+
+- name: 'Fix trnascan(trna-prediction) error: no module named bio'
+  command: '{{ conda_prefix }}/bin/conda install -y --name mulled-v1-0d05ffc973100655b105127870bd205860229f1ab96bd96eed9a70266da17ea8 biopython'
+  become_user: '{{ galaxy_user }}'
+  become: true
+  when:
+   - GALAXY_VERSION in trnascan_fix_galaxy_list
