@@ -16,24 +16,24 @@
 #______________________________________
 #htseq-count
 
-- include: htseq-counts_fix.yml
+- include: htseq_counts_fix.yml
   when: type_of_node == 'front'
   
 #______________________________________
 #fix-fasta-headers
 
-- include: fix-fasta-headers_fix.yml
+- include: fix_fasta_headers_fix.yml
   when: type_of_node == 'front'
    
 #______________________________________
 #dr-disco
 
-- include: dr-disco_fix.yml 
+- include: dr_disco_fix.yml 
   when: type_of_node == 'front'
   
 #______________________________________
 #trscan
 
-- include: trnascan_fix.yml 
-  when: type_of_node == 'front'
+  #- include: trnascan_fix.yml 
+  # when: type_of_node == 'front'
   
