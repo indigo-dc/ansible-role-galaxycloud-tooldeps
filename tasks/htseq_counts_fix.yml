@@ -4,13 +4,9 @@
 # /export/galaxy/database/job_working_directory/000/138/tool_script.sh: line 41: htseq-count: command not found
 # /export/galaxy/database/job_working_directory/000/138/tool_script.sh: line 41: htseq-count: command not found
 
-- name: Get htseq-counts conda env
-  command: '{{ galaxy_venv_path }}/bin/python /tmp/parse_conda_envs.py -c {{ conda_prefix }} -t htseq-counts'
-  register: htseq_count_conda_env
-  ignore_errors: yes
 
 - name: 'Fix htseq_count htseq-count:command not found'
-  command: '{{ conda_prefix }}/bin/conda install -y --name {{ htseq_count_conda_env.stdout }} htseq==0.6.1.post --channel bioconda'
+  command: '{{ conda_prefix }}/bin/conda install -y --name mulled-v1-9a164b56634e119cdc1c287da2a8663c2bb84f95bde65b82c675c42a4851a9cc htseq==0.6.1.post --channel bioconda'
   become_user: '{{ galaxy_user }}'
   become: true
   when:
