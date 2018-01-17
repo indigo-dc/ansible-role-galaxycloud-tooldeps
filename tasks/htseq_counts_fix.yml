@@ -11,7 +11,7 @@
 
 
 - name: 'Fix htseq_count htseq-count:command not found'
-  command: '{{ conda_prefix }}/bin/conda install -y --name {{ htseq_count_conda_env.stdout }} htseq==0.6.1.post1 --channel bioconda'
+  command: '{{ conda_prefix }}/bin/conda install -y --name {{ htseq_count_conda_env.stdout }} htseq==0.6.1p1 --channel bioconda'
   become_user: '{{ galaxy_user }}'
   become: true
   when:
