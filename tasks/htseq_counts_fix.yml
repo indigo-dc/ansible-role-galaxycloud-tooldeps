@@ -6,16 +6,16 @@
 
 - name: Get htseq conda env
   command: '{{ galaxy_venv_path }}/bin/python /tmp/parse_conda_envs.py -c {{ conda_prefix }} -t htseq'
-  register: htseq_count_conda_env
+  register: htseq_counts_conda_env
   ignore_errors: yes
 
 
 - name: 'Fix htseq_count htseq-count:command not found'
-  command: '{{ conda_prefix }}/bin/conda install -y --name {{ htseq_count_conda_env.stdout }} htseq==0.6.1p1 --channel bioconda'
+  command: '{{ conda_prefix }}/bin/conda install -y --name {{ htseq_counts_conda_env.stdout }} htseq==0.6.1p1 --channel bioconda'
   become_user: '{{ galaxy_user }}'
   become: true
   when:
-   - htseq_count_conda_env.failed is not defined
+   - htseq_counts_conda_env.failed is not defined
    - GALAXY_VERSION in htseq_count_fix_galaxy_list
 
 
