@@ -9,11 +9,11 @@
   register: htseq_env
 
 - name: 'Fix htseq_count htseq-count:command not found'
-  command: '{{ conda_prefix }}/bin/conda install -y --name mulled-v1-9a164b56634e119cdc1c287da2a8663c2bb84f95bde65b82c675c42a4851a9cc htseq==0.6.1.p1 --channel bioconda'
+  command: '{{ conda_prefix }}/bin/conda install -y --name mulled-v1-9a164b56634e119cdc1c287da2a8663c2bb84f95bde65b82c675c42a4851a9cc htseq==0.6.1p1 --channel bioconda'
   become_user: '{{ galaxy_user }}'
   become: true
   when:
    - htseq_env.stat.exists
    - GALAXY_VERSION in htseq_count_fix_galaxy_list
 
-#mulled-v1-9a164b56634e119cdc1c287da2a8663c2bb84f95bde65b82c675c42a4851a9cc
+
