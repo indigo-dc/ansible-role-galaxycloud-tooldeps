@@ -14,6 +14,6 @@
   become: true
   when:
    - htseq_env.stat.exists
-#   - GALAXY_VERSION in htseq_count_fix_galaxy_list
+   - GALAXY_VERSION in htseq_count_fix_galaxy_list
 
 
