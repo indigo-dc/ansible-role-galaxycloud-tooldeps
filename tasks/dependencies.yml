@@ -12,3 +12,28 @@
 
 - include: deeptools_fix.yml
   when: type_of_node == 'front'
+  
+#______________________________________
+#fix-fasta-headers
+
+- include: fix_fasta_headers_fix.yml
+  when: type_of_node == 'front'
+   
+#______________________________________
+#dr-disco
+
+- include: dr_disco_fix.yml 
+  when: type_of_node == 'front'
+  
+#______________________________________
+#trscan
+
+  #- include: trnascan_fix.yml 
+  # when: type_of_node == 'front'
+
+#______________________________________
+#htseq-count
+
+- include: htseq_counts_fix.yml
+  when: type_of_node == 'front'
+  
