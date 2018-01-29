@@ -1,14 +1,27 @@
 ---
 # Galaxy dependencies installation recipe
 
-#______________________________________
-# fastqc
-
+# fastq
 - include: fastqc_fix.yml
   when: type_of_node == 'front'
 
-#______________________________________
 # deeptools
-
 - include: deeptools_fix.yml
   when: type_of_node == 'front'
+  
+# fix-fasta-headers
+- include: fix_fasta_headers_fix.yml
+  when: type_of_node == 'front'
+   
+# dr-disco
+- include: dr_disco_fix.yml 
+  when: type_of_node == 'front'
+  
+# trscan
+#- include: trnascan_fix.yml 
+# when: type_of_node == 'front'
+
+# htseq-count
+- include: htseq_counts_fix.yml
+  when: type_of_node == 'front'
+  
