@@ -1,0 +1,7 @@
+---
+# fastqc
+- include: fastqc_fix.yml
+
+# Install binaries (e.g. liftover)
+- include: bin.yml
+  when: install_bin|bool

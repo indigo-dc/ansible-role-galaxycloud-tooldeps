@@ -1,0 +1,33 @@
+---
+#______________________________________
+# Run front node prerequisites
+- include: prerequisites.yml 
+
+#______________________________________
+# Get Conda prefix
+- include: get_conda.yml
+
+#______________________________________
+# Fix dependencies
+
+# fastqc
+- include: fastqc_fix.yml
+
+# deeptools
+- include: deeptools_fix.yml
+  
+# fix-fasta-headers
+- include: fix_fasta_headers_fix.yml
+   
+# dr-disco
+- include: dr_disco_fix.yml 
+  
+# trscan
+#- include: trnascan_fix.yml 
+
+# htseq-count
+- include: htseq_counts_fix.yml
+
+# Install binaries (e.g. liftover)
+- include: bin.yml
+  when: install_bin|bool

@@ -17,8 +17,20 @@
 
 - name: 'Fix dejavu missing packages'
   yum:
-    name: 'dejavu*'
+    name: '{{item}}'
     state: present
+  become_user: root
+  become_method: sudo
+  with_items:
+    - 'fontconfig'
+    - 'dejavu*'
+  when:
+    - ansible_os_family == "RedHat"
+    - fastqc_conda_env.failed is not defined
+    - GALAXY_VERSION in fastqc_fix_galaxy_list
+
+- name: 'Update font cache'
+  command: '/usr/bin/fc-cache /usr/share/fonts/dejavu'
   become_user: root
   become_method: sudo
   when:

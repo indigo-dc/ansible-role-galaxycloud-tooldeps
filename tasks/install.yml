@@ -1,16 +1,18 @@
 ---
 # tasks file for ansible-role-galaxycloud-tooldeps
 
-- include: prerequisites.yml 
-  when: type_of_node == 'front'
+# Run the role only if the infrastructure is not locked for this role.
+- stat: path='{{lock_file_path}}/indigo-dc.galaxycloud-tooldeps.{{type_of_node}}.lock'
+  register: tooldeps_role_locked
 
-# Get Conda prefix
-- include: get_conda.yml
-  when: type_of_node == 'front'
+# Install tools dependencies on front or wn nodes
+- include: '{{type_of_node}}_deps.yml'
+  when: not tooldeps_role_locked.stat.exists
 
-# Install tools dependencies
-- include: dependencies.yml
-
-# Install binaries (e.g. liftover)
-- include: bin.yml
-  when: install_bin|bool
+#______________________________________
+# Lock the role to avoid user custom settings rewrite during updates.
+- name: Lock role
+  template:
+    src: 'indigo-dc.galaxycloud-tooldeps.{{type_of_instance}}.lock.j2'
+    dest: '{{lock_file_path}}/indigo-dc.galaxycloud-tooldeps.{{type_of_instance}}.lock'
+  when: not tooldeps_role_locked.stat.exists
