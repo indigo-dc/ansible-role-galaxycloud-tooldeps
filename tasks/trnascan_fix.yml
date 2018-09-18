@@ -11,6 +11,17 @@
   command: '{{ conda_prefix }}/bin/conda install -y --name mulled-v1-0d05ffc973100655b105127870bd205860229f1ab96bd96eed9a70266da17ea8 biopython'
   become_user: '{{ galaxy_user }}'
   become: true
+  ignore_errors: true
   when:
-   - trna_env.stat.exists 
-   - GALAXY_VERSION in trnascan_fix_galaxy_list
+    - not debug|bool
+    - trna_env.stat.exists 
+    - GALAXY_VERSION in trnascan_fix_galaxy_list
+
+- name: 'Fix trnascan(trna-prediction) error: no module named bio'
+  command: '{{ conda_prefix }}/bin/conda install -y --name mulled-v1-0d05ffc973100655b105127870bd205860229f1ab96bd96eed9a70266da17ea8 biopython'
+  become_user: '{{ galaxy_user }}'
+  become: true
+  when:
+    - debug|bool
+    - trna_env.stat.exists
+    - GALAXY_VERSION in trnascan_fix_galaxy_list

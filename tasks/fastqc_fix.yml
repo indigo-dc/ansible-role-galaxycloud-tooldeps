@@ -22,6 +22,20 @@
   become_user: root
   become_method: sudo
   when:
+    - not debug|bool
+    - ansible_os_family == "RedHat"
+    - fastqc_conda_env.failed is not defined
+    - GALAXY_VERSION in fastqc_fix_galaxy_list
+
+- name: 'Fix dejavu missing packages'
+  yum:
+    name: 'dejavu*'
+    state: present
+  become_user: root
+  become_method: sudo
+  ignore_errors: true
+  when:
+    - debug|bool
     - ansible_os_family == "RedHat"
     - fastqc_conda_env.failed is not defined
     - GALAXY_VERSION in fastqc_fix_galaxy_list
