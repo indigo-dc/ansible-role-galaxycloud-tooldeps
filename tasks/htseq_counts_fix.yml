@@ -11,8 +11,17 @@
   command: '{{ conda_prefix }}/bin/conda install -y --name mulled-v1-c9f488ec0e9a96bed61dcc2e074b26ce37ed596751861ff368fd824a2a5f11d4 htseq==0.9.1 --channel bioconda'
   become_user: '{{ galaxy_user }}'
   become: true
+  ignore_errors: true
   when:
-   - htseq_env.stat.exists
-   - GALAXY_VERSION in htseq_count_fix_galaxy_list
+    - not debug|bool
+    - htseq_env.stat.exists
+    - GALAXY_VERSION in htseq_count_fix_galaxy_list
 
-
+- name: 'Fix htseq_count htseq-count:command not found'
+  command: '{{ conda_prefix }}/bin/conda install -y --name mulled-v1-c9f488ec0e9a96bed61dcc2e074b26ce37ed596751861ff368fd824a2a5f11d4 htseq==0.9.1 --channel bioconda'
+  become_user: '{{ galaxy_user }}'
+  become: true
+  when:
+    - debug|bool
+    - htseq_env.stat.exists
+    - GALAXY_VERSION in htseq_count_fix_galaxy_list

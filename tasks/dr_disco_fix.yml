@@ -12,6 +12,17 @@
   command: '{{ conda_prefix }}/bin/conda install -y --name {{ dr_disco_conda_env.stdout }} dr-disco==0.14.0 --channel bioconda'
   become_user: '{{ galaxy_user }}'
   become: true
+  ignore_errors: true
   when:
-   - dr_disco_conda_env.failed is not defined
-   - GALAXY_VERSION in dr_disco_fix_galaxy_list
+    - not debug|bool
+    - dr_disco_conda_env.failed is not defined
+    - GALAXY_VERSION in dr_disco_fix_galaxy_list
+
+- name: 'Fix dr_disco errror:dr-disco: command not found'
+  command: '{{ conda_prefix }}/bin/conda install -y --name {{ dr_disco_conda_env.stdout }} dr-disco==0.14.0 --channel bioconda'
+  become_user: '{{ galaxy_user }}'
+  become: true
+  when:
+    - debug|bool
+    - dr_disco_conda_env.failed is not defined
+    - GALAXY_VERSION in dr_disco_fix_galaxy_list
